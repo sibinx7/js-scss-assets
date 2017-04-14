@@ -1,0 +1,33 @@
+$xs: 576px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$fhd: 1920px;
+$laptop: 1366px;
+$monitor: 1600px;
+
+$upto_mobile: '(max-width: $xs - 1)';
+$upto_habllet: '(max-width: $sm - 1)';
+$upto_tablet: '(max-width: $md - 1)';
+$upto_desktop: '(max-width: $lg - 1)';
+$upto_laptop: '(max-width: $laptop)';
+$upto_monitor:'(max-width: $monitor)';
+
+$from_mobile: '(min-width: $xs)';
+$from_hablet: '(min-width: $sm)';
+$from_tablet: '(min-width: $md)';
+$from_desktop: '(min-width: $lg)';
+
+$mobile_hablet: '(min-width: $xs) and (max-width: $sm - 1)';
+$hablet_tablet: '(min-width: $sm) and (max-width: $md - 1)';
+$tablet_desktop:'(min-width: $md) and (max-width: $lg - 1)';
+$hablet_desktop: '(min-width: $sm) and (max-width: $lg - 1)';
+
+
+/**
+*  BREAKPOINT              < 576px   576<=x < 768   768 <= x < 992  992 <= x < 1199  1200 <= x 
+*  CONTAINER WIDTH          100%     540px          720px           960px            1140px   
+*
+**/
+
+

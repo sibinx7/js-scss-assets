@@ -1,0 +1,58 @@
+/*******************************************
+*       COMMON MIXINS AND KEYFRAMES        *
+*******************************************/
+
+@mixin c-border-radius($top-right,$bottom-right,$bottom-left,$top-left){
+  -webkit-border-top-right-radius: $top-right;
+  -webkit-border-bottom-right-radius: $bottom-right;
+  -webkit-border-bottom-left-radius: $bottom-left;
+  -webkit-border-top-left-radius: $top-left;
+
+  -moz-border-radius-topright: $top-right;
+  -moz-border-radius-bottomright: $bottom-right;
+  -moz-border-radius-bottomleft: $bottom-left;
+  -moz-border-radius-topleft: $top-left;
+
+  border-top-right-radius: $top-right;
+  border-bottom-right-radius: $bottom-right;
+  border-bottom-left-radius: $bottom-left;
+  border-top-left-radius: $top-left;
+}
+
+@mixin c-transition($properties, $duration, $function, $delay){
+  -webkit-transition: $properties $duration $function $delay;
+  -moz-transition: $properties $duration $function $delay;
+  transition: $properties $duration $function $delay;
+}
+
+@mixin c-box-shadow-outer($left,$top,$blur,$spread,$color){
+  -webkit-box-shadow: $left $top $blur $spread $color;
+  -moz-box-shadow: $left $top $blur $spread $color;
+  box-shadow: $left $top $blur $spread $color;
+}
+
+@mixin c-box-shadow-inner-many($array_style){
+  $cbsim_style:"";
+  $cbsim_length: length($array_style);
+  @for $i from 1 through $cbsim_length{
+    $cbsim_style: #{$cbsim_style}#{nth($array_style,$i)};
+    @if $i < $cbsim_length {
+      $cbsim_style: #{$cbsim_style","}
+    }
+  }
+  box-shadow: inset $cbsim_style;
+  -webkit-box-shadow: inset $cbsim_style;
+  -moz-box-shadow: inset $cbsim_style;
+  -o-box-shadow: inset $cbsim_style;
+}
+
+@mixin c-animation($name,$duration,$function,$delay,$iteration){
+  -webkit-animation: $name $duration $function $delay $iteration;
+  -moz-animation: $name $duration $function $delay $iteration;
+  animation: $name $duration  $function $delay $iteration;
+}
+
+
+/*====================================================
+                        KEY FRAME
+=====================================================*/

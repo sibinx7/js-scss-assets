@@ -1,0 +1,33 @@
+/* MARGIN AND PADDING */
+
+@for $i from 1 through 12{
+  $mn: $i*5;
+  .m-b-#{$mn}{
+    margin-bottom: #{$mn}px;
+  }
+  .m-t-#{$mn}{
+    margin-top: #{$mn}px;
+  }
+  .padding-tb-#{$mn}{
+    padding-top: #{$mn}px;
+    padding-bottom: #{$mn}px;
+  }
+}
+.padding-mobile{
+  &[class*="padding-tb-"]{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+
+.v-center-wrapper{
+  display: table;
+  width: 100%;
+  .v-center-inner{
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+  }
+}
