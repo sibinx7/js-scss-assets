@@ -3,7 +3,7 @@ Simple scss for my personal usage. It contain common styles, mixins, variables a
 
 ## Note: This is not only for personal usage
 
-## Structure o
+## Structure of helper
 - _pages
   - _index.scss
   - _single.scss 
@@ -16,3 +16,7 @@ Simple scss for my personal usage. It contain common styles, mixins, variables a
   - _mixins.scss
   - _keyframes.scss
 - main.scss 
+
+
+#### Main.scss
+It load all scss styles, device.scss has breakpoints, variables has couple of color, width etc. utlitities has common useful classes like padding, margin and all useful styles.
