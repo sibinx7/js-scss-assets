@@ -1,0 +1,14 @@
+{
+  "name": "scss-starter",
+  "version": "1.0.0",
+  "description": "Common scss and js files structure",
+  "main": "index.js",
+  "repository": "git@github.com:sibinx7/scss-starter.git",
+  "author": "Sibin Xavier <sibinx7@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha.6",
+    "font-awesome": "^4.7.0",
+    "jquery": "2.1.4"
+  }
+}
