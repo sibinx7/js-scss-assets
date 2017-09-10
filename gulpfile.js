@@ -9,7 +9,12 @@ var babelify        = require("babelify");
 var source          = require("vinyl-source-stream")
 var buffer          = require('vinyl-buffer');
 var typeScript      = require('gulp-typescript');
+var gulpPostCSS     = require('gulp-postcss');
 var plumber         = require('gulp-plumber');
+
+/* POST CSS plugin */
+var autoprefixer 		= require('autoprefixer');
+var cssnano 				= require('cssnano');
 
 
 var scssFilePath = './scss/main.scss';
@@ -47,6 +52,19 @@ gulp.task('concatBabelScript', function() {
     .pipe(source("main-es6.js"))
     .pipe(gulp.dest('./source/javascripts'))
 });
+
+
+var postcssPlugins = [
+	autoprefixer({browsers: ['last 1 version']}),
+	cssnano()
+];
+gulp.task('postcss', function(){
+	return gulp.src('./postcss/**/*.css')
+		.pipe(plumber())
+		.pipe(gulpPostCSS(postcssPlugins))
+		.pipe(gulp.dest('./source/postcss'));
+});
+
 
 gulp.task('watch', function(){
     gulp.watch('./source/**/*.js',['concatFunctions']);

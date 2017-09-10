@@ -11,6 +11,7 @@
     "font-awesome": "^4.7.0",
     "foundation-sites": "false6.4.3",
     "gulp-plumber": "false1.1.0",
+    "gulp-postcss": "false7.0.0",
     "jquery": "2.1.4"
   },
   "devDependencies": {

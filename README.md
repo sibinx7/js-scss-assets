@@ -15,7 +15,7 @@ Simple scss for my personal usage. It contain common styles, mixins, variables a
   - _form.scss
   - _mixins.scss
   - _keyframes.scss
-	- _table.scss 
+- _table.scss 
 - main.scss 
 
 
