@@ -1,0 +1,45 @@
+@mixin font-roboto-install($body){
+	@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+	@include include_specific_font('Roboto', $body);
+}
+
+@mixin font-faustina-install($body){
+	@import url('https://fonts.googleapis.com/css?family=Faustina:400,500,600');
+	@include include_specific_font('Faustina', $body);
+}
+
+@mixin font-mada-install($body){
+	@import url('https://fonts.googleapis.com/css?family=Mada:300,400,600');
+	@include include_specific_font('Mada', $body);
+
+}
+
+@mixin font-heebo-install{
+	@import url('https://fonts.googleapis.com/css?family=Heebo:300,400,500,700');
+	@include include_specific_font('Heebo',$body);
+}
+
+@mixin font-zilla-slab-install{
+	@import url('https://fonts.googleapis.com/css?family=Zilla+Slab:300,400,500,600,700');
+	@include include_specific_font('Zilla Slab','zilla-slab' , $body );
+}
+
+
+/* Common font setting */
+@mixin include_specific_font($font,$font_class:"", $body){
+	@if($body == 'true'){
+		body{
+			font-family: '#{$font}', sans-serif;
+		}
+	}
+	@if $font_class==""{
+		.font-#{to-lowercase($font)}{
+			font-family: '#{$font}', sans-serif;
+		}
+	}@else{
+		.font-#{$font_class}{
+			font-family: '#{$font}', sans-serif;
+		}
+	}
+	
+}

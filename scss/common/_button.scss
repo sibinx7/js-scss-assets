@@ -1,0 +1,46 @@
+/* Use this mixins only if you want tpo override bootstrap styles */
+@mixin custom-bootstrap-button{
+	$btn_colors: ('success':$SUCCESS_COLOR, 'danger':$DANGER_COLOR,
+	'warning': $WARNING_COLOR, 'info': $INFO_COLOR,'primary':$PRIMARY_COLOR,
+	'secondary': $SECODARY_COLOR);
+	.btn{		
+		@each $name,$color in $btn_colors{
+			&.btn-#{$name}{
+				background: $color;
+				border-color: $color;
+				@if($name=="light"){
+					color: #333;
+				}@else{
+					color: #fff;
+				}
+				&:hover,&:active,&:focus{
+					background: darken($color, 10%);
+					border-color: darken($color, 10%);
+					@if($name=="light"){
+						color: #333;
+					}@else{
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin custom-foundation-button{
+	$f_button_colors: ('primary':$F_PRIMARY_COLOR, 'secondary': $F_SECONDARY_COLOR,
+	'success': $F_SUCCESS_COLOR, 'alert': $F_ALERT_COLOR, 'warning': $F_WARNING_COLOR);
+	.button{
+		@each $f_name, $f_color in $f_button_colors{
+			&.#{$f_name}{
+				background: $f_color;
+				border-color: $f_color;
+				color: #fff;
+				&:hover,&:active,&:focus{
+					background: darken($f_color, 10%);
+					border-color: darken($f_color, 10%); 
+				}
+			}
+		}
+	}
+}

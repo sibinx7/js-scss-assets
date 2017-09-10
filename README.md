@@ -15,8 +15,22 @@ Simple scss for my personal usage. It contain common styles, mixins, variables a
   - _form.scss
   - _mixins.scss
   - _keyframes.scss
+	- _table.scss 
 - main.scss 
 
 
 #### Main.scss
 It load all scss styles, device.scss has breakpoints, variables has couple of color, width etc. utlitities has common useful classes like padding, margin and all useful styles.
+
+
+#### Technologies 
+
+- ES6
+- SASS/SCSS
+- Gulp 
+
+
+> 
+	- Webpack 
+	- React 
+	- Post CSS
