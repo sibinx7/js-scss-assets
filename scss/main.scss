@@ -1,4 +1,15 @@
+
+@mixin include_bootstrap_framework{
+	@import '~bootstrap/scss/bootstrap';
+}
+
+
+@mixin include_foundation_site_framework{
+	@include foundation-everything(true);
+	@include foundation-xy-grid-classes;
+}
+
 @import "common/common";
 @import "pages/index";
 @import "pages/other";
-@import "pages/single";
+@import "pages/single";	
