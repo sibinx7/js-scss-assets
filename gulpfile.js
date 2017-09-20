@@ -23,14 +23,14 @@ require('dotenv').config();
 
 var jsTarget, scssTarget, esTarget;
 
-if(process.env.framework === 'middleman'){
-	jsTarget = './source/javascripts';
-	scssTarget = './source/stylesheets';
-	esTarget = './source/javascripts';
-}else if(process.env.framework == 'wordpress'){
-	jsTarget = './source/javascripts';
-	scssTarget = './source/stylesheets';
-	esTarget = './source/javascripts';
+if(process.env.FRAMEWORK === 'middleman'){
+	jsTarget = './source/javascripts/';
+	scssTarget = './source/stylesheets/';
+	esTarget = './source/javascripts/';
+}else if(process.env.FRAMEWORK == 'wordpress'){
+	jsTarget = './source/javascripts/';
+	scssTarget = './source/stylesheets/';
+	esTarget = './source/javascripts/';
 }else{
 
 }
@@ -38,9 +38,11 @@ if(process.env.framework === 'middleman'){
 
 
 
-if(process.env.framework != 'middleman'){
+console.log(process.env.FRAMEWORK)
+
+if(process.env.FRAMEWORK != 'middleman'){
 	var scssFilePath = './scss/main.scss';
-	gulp.task('sass', function(){
+	gulp.task('scss', function(){
 			return gulp.src(scssFilePath)
 			.pipe(plumber())
 			.pipe(gulpSass())
@@ -66,7 +68,7 @@ gulp.task('concatFunctions', function(){
 })
 
 gulp.task('concatBabelScript', function() {
-  return browserify({entries:'./source/js-scss-assets/es6/main.js'})
+  return browserify({entries:'./js-scss-assets/js/es6/main.js'})
     .transform("babelify",{
       presets:["es2015","latest"]
     })
@@ -91,14 +93,14 @@ gulp.task('postcss', function(){
 
 gulp.task('watch', function(){
 		gulp.watch('./source/**/*.js',['concatFunctions']);
-		if(process.env.framework != 'middleman'){
+		if(process.env.FRAMEWORK != 'middleman'){
 			gulp.watch('./scss/**/*.scss',['sass']);
 		}
 })
 
 
 var commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
-if(process.env.framework != 'middleman'){
+if(process.env.FRAMEWORK != 'middleman'){
 	commonTaskes.push('scss');
 }
 gulp.task('default', commonTaskes);
