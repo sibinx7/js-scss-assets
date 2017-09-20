@@ -17,6 +17,28 @@ var autoprefixer 		= require('autoprefixer');
 var cssnano 				= require('cssnano');
 
 
+require('dotenv').config();
+
+
+
+var jsTarget, scssTarget, esTarget;
+
+if(process.env.framework === 'middleman'){
+	jsTarget = './source/javascripts';
+	scssTarget = './source/stylesheets';
+	esTarget = './source/javascripts';
+}else if(process.env.framework == 'wordpress'){
+	jsTarget = './source/javascripts';
+	scssTarget = './source/stylesheets';
+	esTarget = './source/javascripts';
+}else{
+
+}
+
+
+
+
+
 var scssFilePath = './scss/main.scss';
 gulp.task('sass', function(){
 		return gulp.src(scssFilePath)
@@ -27,19 +49,19 @@ gulp.task('sass', function(){
 
 
 var jquerySRC = './node_modules/jquery/dist/jquery.min.js';
-var tetherSRC = './node_modules/popper/dist/popper.min.js';
+var popper = './node_modules/popper/dist/umd/popper.min.js';
 var bootstrapSRC = './node_modules/bootstrap/dist/js/bootstrap.min.js'
 gulp.task('concatLibs', function(){
 		return gulp.src([])
 		.pipe(gulpConcat('main-libs.js'))
-    .pipe(gulp.dest('./js/'));
+    .pipe(gulp.dest(jsTarget));
 });
 
 gulp.task('concatFunctions', function(){
 		return gulp.src([])
 		.pipe(plumber())
 		.pipe(gulpConcat('functions.js'))
-    .pipe(gulp.dest('./js'))
+    .pipe(gulp.dest(jsTarget))
 })
 
 gulp.task('concatBabelScript', function() {
@@ -50,7 +72,7 @@ gulp.task('concatBabelScript', function() {
 		.bundle()
 		.pipe(plumber())
     .pipe(source("main-es6.js"))
-    .pipe(gulp.dest('./source/javascripts'))
+    .pipe(gulp.dest(esTarget))
 });
 
 
@@ -67,8 +89,15 @@ gulp.task('postcss', function(){
 
 
 gulp.task('watch', function(){
-    gulp.watch('./source/**/*.js',['concatFunctions']);
-    gulp.watch('./scss/**/*.scss',['sass']);
+		gulp.watch('./source/**/*.js',['concatFunctions']);
+		if(process.env.framework != 'middleman'){
+			gulp.watch('./scss/**/*.scss',['sass']);
+		}
 })
 
-gulp.task('default',['sass','concatLibs','concatFunctions']);
+
+var commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
+if(process.env.framework != 'middleman'){
+	commonTaskes.push('scss');
+}
+gulp.task('default', commonTaskes);
