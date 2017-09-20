@@ -38,14 +38,15 @@ if(process.env.framework === 'middleman'){
 
 
 
-
-var scssFilePath = './scss/main.scss';
-gulp.task('sass', function(){
-		return gulp.src(scssFilePath)
-		.pipe(plumber())
-		.pipe(gulpSass())
-    .pipe(gulp.dest('./css/main.css'));
-});
+if(process.env.framework != 'middleman'){
+	var scssFilePath = './scss/main.scss';
+	gulp.task('sass', function(){
+			return gulp.src(scssFilePath)
+			.pipe(plumber())
+			.pipe(gulpSass())
+			.pipe(gulp.dest('./css/main.css'));
+	});
+}
 
 
 var jquerySRC = './node_modules/jquery/dist/jquery.min.js';
