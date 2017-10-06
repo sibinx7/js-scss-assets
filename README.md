@@ -15,7 +15,8 @@ Simple scss for my personal usage. It contain common styles, mixins, variables a
   - _form.scss
   - _mixins.scss
   - _keyframes.scss
-- _table.scss 
+	- _table.scss 
+	- _dashboard.scss 
 - main.scss 
 
 
@@ -27,10 +28,12 @@ It load all scss styles, device.scss has breakpoints, variables has couple of co
 
 - ES6
 - SASS/SCSS
-- Gulp 
+- Gulp Babel
+- PostCSS
 
 
 > 
 	- Webpack 
 	- React 
 	- Post CSS
+	- ELM 

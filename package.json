@@ -12,6 +12,7 @@
     "foundation-sites": "6.4.3",
     "highcharts": "false6.0.1",
     "jquery": "2.1.4",
+    "jquery-slimscroll": "false1.3.8",
     "popper.js": "^1.11.0",
     "slick-carousel": "1.8.1"
   },

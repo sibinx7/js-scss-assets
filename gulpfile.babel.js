@@ -26,15 +26,17 @@ require('dotenv').config();
 
 
 
+const middlemanTargets = `${__driname}/source`;
 
 
-
-var jsTarget, scssTarget, esTarget;
+let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget;
 
 if(process.env.FRAMEWORK === 'middleman'){
-	jsTarget = './source/javascripts/';
-	scssTarget = './source/stylesheets/';
-	esTarget = './source/javascripts/';
+	jsTarget = `${middlemanTargets}/javascripts/`;
+	scssTarget = `${middlemanTargets}/stylesheets/`;
+	esTarget = `${middlemanTargets}/javascripts/`;
+	fontsTarget = `${middlemanTargets}/fonts/`;
+	imageTarget = `${middlemanTargets}/images/`;
 }else if(process.env.FRAMEWORK == 'wordpress'){
 	jsTarget = './source/javascripts/';
 	scssTarget = './source/stylesheets/';
@@ -69,8 +71,11 @@ gulp.task('concatLibs', function(){
 });
 
 
-var slickCarouselSRC = `${node_modules_path}/slick-carousel/slick.min.js`;
-var highChartSRC = `${node_modules_path}/highcharts/highcharts.js`;
+const slickCarouselSRC = `${node_modules_path}/slick-carousel/slick.min.js`;
+const highChartSRC = `${node_modules_path}/highcharts/highcharts.js`;
+const jquerySlimScrollSRC = `${node_modules_path}/jquery-slimcroll/jquery.slimscroll.min.js`
+
+
 gulp.task('concatCommonLibs', () =>{
 	return gulp.src([
 
@@ -118,6 +123,14 @@ gulp.task('watch', function(){
 			gulp.watch('./scss/**/*.scss',['sass']);
 		}
 })
+
+
+
+const slickCarouselFonts = `${node_modules_path}/slick-carousel/fonts/**`;
+gulp.task('copySlickCarouselFonts', () => {
+	gulp.src(slickCarouselFonts)
+	.pipe(gulp.dest(fontsTarget))
+});
 
 
 var commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
