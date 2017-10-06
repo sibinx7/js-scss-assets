@@ -1,7 +1,6 @@
 
-@mixin include_bootstrap_framework{
-	@import '~bootstrap/scss/bootstrap';
-}
+@import '../node_modules/bootstrap/scss/bootstrap';
+
 
 
 @mixin include_foundation_site_framework{

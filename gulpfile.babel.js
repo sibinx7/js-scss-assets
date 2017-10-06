@@ -17,7 +17,15 @@ var autoprefixer 		= require('autoprefixer');
 var cssnano 				= require('cssnano');
 
 
+var node_modules_path = `${__dirname}/node_modules`;
+
+const es6functionSRC = `${__dirname}/js/es6/main.js`;
+
+
 require('dotenv').config();
+
+
+
 
 
 
@@ -51,14 +59,27 @@ if(process.env.FRAMEWORK != 'middleman'){
 }
 
 
-var jquerySRC = './node_modules/jquery/dist/jquery.min.js';
-var popper = './node_modules/popper/dist/umd/popper.min.js';
-var bootstrapSRC = './node_modules/bootstrap/dist/js/bootstrap.min.js'
+var jquerySRC = `${node_module_path}/jquery/dist/jquery.min.js`;
+var popper = `${node_module_path}/popper/dist/umd/popper.min.js`;
+var bootstrapSRC = `${node_module_path}/bootstrap/dist/js/bootstrap.min.js`
 gulp.task('concatLibs', function(){
 		return gulp.src([])
-		.pipe(gulpConcat('main-libs.js'))
+		.pipe(gulpConcat('bootstrap-libs.js'))
     .pipe(gulp.dest(jsTarget));
 });
+
+
+var slickCarouselSRC = `${node_modules_path}/slick-carousel/slick.min.js`;
+var highChartSRC = `${node_modules_path}/highcharts/highcharts.js`;
+gulp.task('concatCommonLibs', () =>{
+	return gulp.src([
+
+	])
+	.pipe(plumber())
+	.pipe(gulpConcat('common-3rd-libs'))
+	.pipe(gulp.dest(jsTarget));
+});
+
 
 gulp.task('concatFunctions', function(){
 		return gulp.src([])
@@ -68,7 +89,7 @@ gulp.task('concatFunctions', function(){
 })
 
 gulp.task('concatBabelScript', function() {
-  return browserify({entries:'./js-scss-assets/js/es6/main.js'})
+  return browserify({entries:`${es6functionSRC}`})
     .transform("babelify",{
       presets:["es2015","latest"]
     })
