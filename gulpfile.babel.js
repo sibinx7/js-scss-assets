@@ -73,7 +73,8 @@ gulp.task('concatLibs', function(){
 
 const slickCarouselSRC = `${node_modules_path}/slick-carousel/slick.min.js`;
 const highChartSRC = `${node_modules_path}/highcharts/highcharts.js`;
-const jquerySlimScrollSRC = `${node_modules_path}/jquery-slimcroll/jquery.slimscroll.min.js`
+const jquerySlimScrollSRC = `${node_modules_path}/jquery-slimscroll/jquery.slimscroll.min.js`
+const dropzoneJSSRC = `${node_modules_path}/dropzone/dist/min/dropzone.min.js`;
 
 
 gulp.task('concatCommonLibs', () =>{
@@ -133,8 +134,21 @@ gulp.task('copySlickCarouselFonts', () => {
 });
 
 
+gulp.task('runBeforeGulp', () => {
+	const dropzoneDIR = `${node_modules_path}/dropzone/`;
+	const dropzoneBasicSRC = `${node_modules_path}/dropzone/dist/basic.css`;
+	const dropzoneSRC = `${node_modules_path}/dropzone/dist/dropzpne.css`;
+	gulp.src(`${dropzoneDIR}/dist/min/*.css`)
+		.pipe(gulpRename((path) => {
+			path.dirname += '/scss';
+			path.extname = '.scss'
+		}))
+		.pipe(gulp.dest(dropzoneDIR))
+})
+
 var commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
 if(process.env.FRAMEWORK != 'middleman'){
 	commonTaskes.push('scss');
 }
+
 gulp.task('default', commonTaskes);
