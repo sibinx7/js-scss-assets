@@ -1,23 +1,23 @@
-var gulp = require('gulp');
-var gulpSass = require('gulp-sass');
-var gulpConcat = require('gulp-concat');
-var gulpRename = require('gulp-rename');
-var babel           = require("gulp-babel");
-var gulpBrowserify  = require("gulp-browserify");
-var browserify      = require("browserify");
-var babelify        = require("babelify");
-var source          = require("vinyl-source-stream")
-var buffer          = require('vinyl-buffer');
-var typeScript      = require('gulp-typescript');
-var gulpPostCSS     = require('gulp-postcss');
-var plumber         = require('gulp-plumber');
+const gulp = require('gulp');
+const gulpSass = require('gulp-sass');
+const gulpConcat = require('gulp-concat');
+const gulpRename = require('gulp-rename');
+const babel           = require("gulp-babel");
+const gulpBrowserify  = require("gulp-browserify");
+const browserify      = require("browserify");
+const babelify        = require("babelify");
+const source          = require("vinyl-source-stream")
+const buffer          = require('vinyl-buffer');
+const typeScript      = require('gulp-typescript');
+const gulpPostCSS     = require('gulp-postcss');
+const plumber         = require('gulp-plumber');
 
 /* POST CSS plugin */
-var autoprefixer 		= require('autoprefixer');
-var cssnano 				= require('cssnano');
+const autoprefixer 		= require('autoprefixer');
+const cssnano 				= require('cssnano');
 
 
-var node_modules_path = `${__dirname}/node_modules`;
+const node_modules_path = `${__dirname}/node_modules`;
 
 const es6functionSRC = `${__dirname}/js/es6/main.js`;
 
@@ -50,7 +50,7 @@ if(process.env.FRAMEWORK === 'middleman'){
 
 if(process.env.FRAMEWORK != 'middleman'
 && process.env.FRAMEWORK != 'spike'){
-	var scssFilePath = './scss/main.scss';
+	const scssFilePath = './scss/main.scss';
 	gulp.task('scss', function(){
 			return gulp.src(scssFilePath)
 			.pipe(plumber())
@@ -60,9 +60,9 @@ if(process.env.FRAMEWORK != 'middleman'
 }
 
 
-var jquerySRC = `${node_module_path}/jquery/dist/jquery.min.js`;
-var popper = `${node_module_path}/popper/dist/umd/popper.min.js`;
-var bootstrapSRC = `${node_module_path}/bootstrap/dist/js/bootstrap.min.js`
+const jquerySRC = `${node_modules_path}/jquery/dist/jquery.min.js`;
+const popper = `${node_modules_path}/popper/dist/umd/popper.min.js`;
+const bootstrapSRC = `${node_modules_path}/bootstrap/dist/js/bootstrap.min.js`
 gulp.task('concatLibs', function(){
 		return gulp.src([])
 		.pipe(gulpConcat('bootstrap-libs.js'))
@@ -105,7 +105,7 @@ gulp.task('concatBabelScript', function() {
 });
 
 
-var postcssPlugins = [
+const postcssPlugins = [
 	autoprefixer({browsers: ['last 1 version']}),
 	cssnano()
 ];
@@ -152,7 +152,7 @@ gulp.task('runBeforeGulp', () => {
 		path.dirname +='/scss';
 		path.extname = '.scss'
 	})).pipe(gulp.dest(rateyoCSS))
-	
+
 
 	const dropzoneDIR = `${node_modules_path}/dropzone/`;
 	const dropzoneBasicSRC = `${node_modules_path}/dropzone/dist/basic.css`;
@@ -165,7 +165,7 @@ gulp.task('runBeforeGulp', () => {
 		.pipe(gulp.dest(dropzoneDIR))
 })
 
-var commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
+const commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
 if(process.env.FRAMEWORK != 'middleman' && process.env.FRAMEWORK != 'spike'){
 	commonTaskes.push('scss');
 }
