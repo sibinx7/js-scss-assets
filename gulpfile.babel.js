@@ -27,7 +27,7 @@ require('dotenv').config();
 
 
 const middlemanTargets = `${__driname}/source`;
-
+const spikeTargets = `${__dirname}/assets`;
 
 let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget;
 
@@ -41,16 +41,15 @@ if(process.env.FRAMEWORK === 'middleman'){
 	jsTarget = './source/javascripts/';
 	scssTarget = './source/stylesheets/';
 	esTarget = './source/javascripts/';
-}else{
-
+}else if(process.env.FRAMEWORK == 'spike'){ 
+	jsTarget = `${spikeTargets}/vendor`;
+	fontsTarget = `${spikeTargets}/fonts`;
+	imageTarget = `${spikeTargets}/img`;
 }
 
 
-
-
-console.log(process.env.FRAMEWORK)
-
-if(process.env.FRAMEWORK != 'middleman'){
+if(process.env.FRAMEWORK != 'middleman'
+&& process.env.FRAMEWORK != 'spike'){
 	var scssFilePath = './scss/main.scss';
 	gulp.task('scss', function(){
 			return gulp.src(scssFilePath)
@@ -127,14 +126,34 @@ gulp.task('watch', function(){
 
 
 
-const slickCarouselFonts = `${node_modules_path}/slick-carousel/fonts/**`;
+
 gulp.task('copySlickCarouselFonts', () => {
+	const slickCarouselFonts = `${node_modules_path}/slick-carousel/fonts/**`;
 	gulp.src(slickCarouselFonts)
 	.pipe(gulp.dest(fontsTarget))
 });
 
 
 gulp.task('runBeforeGulp', () => {
+	const fontAwesomeFonts = `${node_modules_path}/font-awesome/fonts/**`;
+	gulp.src(fontAwesomeFonts)
+	.pipe(gulp.dest(fontsTarget))
+
+
+	const slickCarouselFonts = `${node_modules_path}/slick-carousel/fonts/**`;
+	gulp.src(slickCarouselFonts)
+	.pipe(gulp.dest(fontsTarget))
+
+
+	const rateyoCSS = `${node_modules_path}/rateyo/`;
+	gulp.src([
+		`${rateyoCSS}/min/jquery.rateyo.min.css`
+	]).pipe(gulpRename((path) => {
+		path.dirname +='/scss';
+		path.extname = '.scss'
+	})).pipe(gulp.dest(rateyoCSS))
+	
+
 	const dropzoneDIR = `${node_modules_path}/dropzone/`;
 	const dropzoneBasicSRC = `${node_modules_path}/dropzone/dist/basic.css`;
 	const dropzoneSRC = `${node_modules_path}/dropzone/dist/dropzpne.css`;
@@ -147,7 +166,7 @@ gulp.task('runBeforeGulp', () => {
 })
 
 var commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
-if(process.env.FRAMEWORK != 'middleman'){
+if(process.env.FRAMEWORK != 'middleman' && process.env.FRAMEWORK != 'spike'){
 	commonTaskes.push('scss');
 }
 
