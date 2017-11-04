@@ -32,6 +32,26 @@ It load all scss styles, device.scss has breakpoints, variables has couple of co
 - PostCSS
 
 
+### Required packages 
+
+##### Install globally 
+
+```
+sudo npm install typescript@latest  babel-cli@latest babel-core@latest
+babelify@latest browserify@latest gulp postcss -g
+```
+
+##### Install locally, dev dependencies
+
+```
+npm  install autoprefixer babel-cli babel-core babel-preset-en babel-preset-es2015 babel-preset-es2017 babel-preset-latest babelify browserify cssnano dotenv gulp gulp-babe gulp-browserify gulp-concat gulp-plumbe gulp-postcss gulp-rename gulp-sass gulp-typescript gulp-uglify install postcs postcss-color-function typescript vinyl-buffer vinyl-source-strea -D
+```
+
+##### Install locally, dependencies 
+
+```
+npm install  bootstrap dropzone font-awesome foundation-sites highcharts jquery jquery-slimscroll popper.js slick-carousel -S
+```
 > 
 	- Webpack 
 	- React 
