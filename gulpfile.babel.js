@@ -24,6 +24,9 @@ const es6functionSRC = `${__dirname}/js/es6/main.js`;
 
 require('dotenv').config();
 
+let FRAMEWORK = process.env.FRAMEWORK;
+let CSS_FRAMEWORK = process.env.CSS_FRAMEWORK || 'bootstrap'
+
 
 
 const middlemanTargets = `${__driname}/source`;
@@ -31,25 +34,25 @@ const spikeTargets = `${__dirname}/assets`;
 
 let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget;
 
-if(process.env.FRAMEWORK === 'middleman'){
+if(FRAMEWORK === 'middleman'){
 	jsTarget = `${middlemanTargets}/javascripts/`;
 	scssTarget = `${middlemanTargets}/stylesheets/`;
 	esTarget = `${middlemanTargets}/javascripts/`;
 	fontsTarget = `${middlemanTargets}/fonts/`;
 	imageTarget = `${middlemanTargets}/images/`;
-}else if(process.env.FRAMEWORK == 'wordpress'){
+}else if(FRAMEWORK == 'wordpress'){
 	jsTarget = './source/javascripts/';
 	scssTarget = './source/stylesheets/';
 	esTarget = './source/javascripts/';
-}else if(process.env.FRAMEWORK == 'spike'){ 
+}else if(FRAMEWORK == 'spike'){ 
 	jsTarget = `${spikeTargets}/vendor`;
 	fontsTarget = `${spikeTargets}/fonts`;
 	imageTarget = `${spikeTargets}/img`;
 }
 
 
-if(process.env.FRAMEWORK != 'middleman'
-&& process.env.FRAMEWORK != 'spike'){
+if(FRAMEWORK != 'middleman'
+&& FRAMEWORK != 'spike'){
 	const scssFilePath = './scss/main.scss';
 	gulp.task('scss', function(){
 			return gulp.src(scssFilePath)
@@ -62,15 +65,26 @@ if(process.env.FRAMEWORK != 'middleman'
 
 const jquerySRC = `${node_modules_path}/jquery/dist/jquery.min.js`;
 const popper = `${node_modules_path}/popper/dist/umd/popper.min.js`;
-const bootstrapSRC = `${node_modules_path}/bootstrap/dist/js/bootstrap.min.js`
+const bootstrapSRC = `${node_modules_path}/bootstrap/dist/js/bootstrap.min.js`;
+const foundationSRC = `${node_modules_path}/foundation-sites/dist/foundation.min.js`;
+
 gulp.task('concatLibs', function(){
-		return gulp.src([])
-		.pipe(gulpConcat('bootstrap-libs.js'))
+		let requiredPlugins = [jquerySRC];
+		let outputName = 'bootstrap-libs.js';
+		if(CSS_FRAMEWORK==='bootstrap'){
+			requiredPlugins = [...requiredPlugins,, popper,  bootstrapSRC]
+		}else{
+			requiredPlugins = [...requiredPlugins,foundationSRC];
+			outputName = 'foundation-libs.js';
+		}
+
+		return gulp.src(requiredPlugins)
+		.pipe(gulpConcat(outputName))
     .pipe(gulp.dest(jsTarget));
 });
 
 
-const slickCarouselSRC = `${node_modules_path}/slick-carousel/slick.min.js`;
+const slickCarouselSRC = `${node_modules_path}/slick-carousel/slick/slick.min.js`;
 const highChartSRC = `${node_modules_path}/highcharts/highcharts.js`;
 const jquerySlimScrollSRC = `${node_modules_path}/jquery-slimscroll/jquery.slimscroll.min.js`
 const dropzoneJSSRC = `${node_modules_path}/dropzone/dist/min/dropzone.min.js`;
@@ -119,7 +133,7 @@ gulp.task('postcss', function(){
 
 gulp.task('watch', function(){
 		gulp.watch('./source/**/*.js',['concatFunctions']);
-		if(process.env.FRAMEWORK != 'middleman'){
+		if(FRAMEWORK != 'middleman'){
 			gulp.watch('./scss/**/*.scss',['sass']);
 		}
 })
@@ -128,7 +142,7 @@ gulp.task('watch', function(){
 
 
 gulp.task('copySlickCarouselFonts', () => {
-	const slickCarouselFonts = `${node_modules_path}/slick-carousel/fonts/**`;
+	const slickCarouselFonts = `${node_modules_path}/slick-carousel/slick/fonts/**`;
 	gulp.src(slickCarouselFonts)
 	.pipe(gulp.dest(fontsTarget))
 });
@@ -140,7 +154,7 @@ gulp.task('runBeforeGulp', () => {
 	.pipe(gulp.dest(fontsTarget))
 
 
-	const slickCarouselFonts = `${node_modules_path}/slick-carousel/fonts/**`;
+	const slickCarouselFonts = `${node_modules_path}/slick-carousel/slick/fonts/**`;
 	gulp.src(slickCarouselFonts)
 	.pipe(gulp.dest(fontsTarget))
 
@@ -166,7 +180,7 @@ gulp.task('runBeforeGulp', () => {
 })
 
 const commonTaskes = ['concatLibs','concatFunctions','concatBabelScript'];
-if(process.env.FRAMEWORK != 'middleman' && process.env.FRAMEWORK != 'spike'){
+if(FRAMEWORK != 'middleman' && FRAMEWORK != 'spike'){
 	commonTaskes.push('scss');
 }
 
