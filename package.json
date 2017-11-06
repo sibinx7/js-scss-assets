@@ -40,7 +40,7 @@
     "gulp-typescript": "^3.2.3",
     "gulp-uglify": "^3.0.0",
     "install": "false0.10.1",
-    "postcss": "^6.0.13",
+    "postcss": "^6.0.14",
     "postcss-color-function": "false4.0.0",
     "typescript": "^2.6.1",
     "vinyl-buffer": "^1.0.0",
