@@ -44,7 +44,8 @@ babelify@latest browserify@latest gulp postcss -g
 ##### Install locally, dev dependencies
 
 ```
-npm  install autoprefixer babel-cli babel-core babel-preset-en babel-preset-es2015 babel-preset-es2017 babel-preset-latest babelify browserify cssnano dotenv gulp gulp-babe gulp-browserify gulp-concat gulp-plumbe gulp-postcss gulp-rename gulp-sass gulp-typescript gulp-uglify install postcs postcss-color-function typescript vinyl-buffer vinyl-source-strea -D
+npm  install autoprefixer babel-cli babel-core babel-preset-env babel-preset-es2015 babel-preset-es2017 babel-preset-latest babelify browserify cssnano dotenv gulp gulp-babel gulp-browserify gulp-concat gulp-plumbe gulp-postcss gulp-rename gulp-sass gulp-typescript gulp-uglify install postcss postcss-color-function typescript vinyl-buffer vinyl-source-stream 
+browser-sync -D
 ```
 
 ##### Install locally, dependencies 
