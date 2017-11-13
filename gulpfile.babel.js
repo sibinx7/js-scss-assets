@@ -11,6 +11,8 @@ const buffer          = require('vinyl-buffer');
 const typeScript      = require('gulp-typescript');
 const gulpPostCSS     = require('gulp-postcss');
 const plumber         = require('gulp-plumber');
+const gulpSourcemap   = require('gulp-sourcemaps');
+const preCSS					= require('precss')
 
 /* POST CSS plugin */
 const autoprefixer 		= require('autoprefixer');
@@ -29,7 +31,7 @@ let CSS_FRAMEWORK = process.env.CSS_FRAMEWORK || 'bootstrap'
 
 
 
-const middlemanTargets = `${__driname}/source`;
+const middlemanTargets = `${__dirname}/source`;
 const spikeTargets = `${__dirname}/assets`;
 
 let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget;
@@ -120,13 +122,27 @@ gulp.task('concatBabelScript', function() {
 
 
 const postcssPlugins = [
-	autoprefixer({browsers: ['last 1 version']}),
-	cssnano()
+	require('precss'),
+	require('autoprefixer'),
+	require('postcss-custom-properties'),
+	require('postcss-apply'),
+	require('postcss-extend'),
+	// require('postcss-calc'),
+	require('postcss-custom-media'),
+	require('postcss-media-minmax'),
+	require('postcss-nesting'),
+
+	// require('postcss-scss'),
+	// require('postcss-simple-vars'),
+	// require('postcss-color-function')
+
 ];
 gulp.task('postcss', function(){
 	return gulp.src('./postcss/**/*.css')
 		.pipe(plumber())
+		.pipe(gulpSourcemap.init())
 		.pipe(gulpPostCSS(postcssPlugins))
+		.pipe(gulpSourcemap.write('.'))
 		.pipe(gulp.dest('./source/postcss'));
 });
 

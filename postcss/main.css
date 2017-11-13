@@ -1,0 +1,24 @@
+/**
+POST CSS EXAMPLE
+**/
+:root{
+	--fontSize: 14px;
+	--textColor: #333;
+
+}
+
+%container {
+	padding-right: 15px;
+	max-width: 1170px;
+  padding-left: 15px;
+}
+
+
+body{
+	font-size: var(--fontSize);
+	color: var(--textColor);
+}
+
+.container{
+	@extend %container;
+}
