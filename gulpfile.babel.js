@@ -43,9 +43,10 @@ if(FRAMEWORK === 'middleman'){
 	fontsTarget = `${middlemanTargets}/fonts/`;
 	imageTarget = `${middlemanTargets}/images/`;
 }else if(FRAMEWORK == 'wordpress'){
-	jsTarget = './source/javascripts/';
-	scssTarget = './source/stylesheets/';
-	esTarget = './source/javascripts/';
+	jsTarget = './javascripts/';
+	scssTarget = './stylesheets/';
+	esTarget = './javascripts/';
+	es6functionSRC = `${__dirname}/js-scss-assets/js/es6/main.js`;
 }else if(FRAMEWORK == 'spike'){ 
 	jsTarget = `${spikeTargets}/vendor`;
 	fontsTarget = `${spikeTargets}/fonts`;
@@ -74,7 +75,7 @@ gulp.task('concatLibs', function(){
 		let requiredPlugins = [jquerySRC];
 		let outputName = 'bootstrap-libs.js';
 		if(CSS_FRAMEWORK==='bootstrap'){
-			requiredPlugins = [...requiredPlugins,, popper,  bootstrapSRC]
+			requiredPlugins = [...requiredPlugins, popper,  bootstrapSRC]
 		}else{
 			requiredPlugins = [...requiredPlugins,foundationSRC];
 			outputName = 'foundation-libs.js';
