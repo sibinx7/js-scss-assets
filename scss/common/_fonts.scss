@@ -26,7 +26,7 @@
 
 
 /* Common font setting */
-@mixin include_specific_font($font,$font_class:"", $body){
+@mixin include_specific_font($font, $body, $font_class:""){
 	@if($body == 'true'){
 		body{
 			font-family: '#{$font}', sans-serif;

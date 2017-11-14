@@ -21,7 +21,8 @@ const cssnano 				= require('cssnano');
 
 const node_modules_path = `${__dirname}/node_modules`;
 
-const es6functionSRC = `${__dirname}/js/es6/main.js`;
+let es6functionSRC = `${__dirname}/js/es6/main.js`;
+let scssSRC;
 
 
 require('dotenv').config();
@@ -42,12 +43,13 @@ if(FRAMEWORK === 'middleman'){
 	esTarget = `${middlemanTargets}/javascripts/`;
 	fontsTarget = `${middlemanTargets}/fonts/`;
 	imageTarget = `${middlemanTargets}/images/`;
-}else if(FRAMEWORK == 'wordpress'){
+}else if(FRAMEWORK === 'wordpress'){
 	jsTarget = './javascripts/';
 	scssTarget = './stylesheets/';
 	esTarget = './javascripts/';
 	es6functionSRC = `${__dirname}/js-scss-assets/js/es6/main.js`;
-}else if(FRAMEWORK == 'spike'){ 
+	scssSRC = `${__dirname}/js-scss-assets/scss/main.scss`
+}else if(FRAMEWORK === 'spike'){ 
 	jsTarget = `${spikeTargets}/vendor`;
 	fontsTarget = `${spikeTargets}/fonts`;
 	imageTarget = `${spikeTargets}/img`;
@@ -56,12 +58,12 @@ if(FRAMEWORK === 'middleman'){
 
 if(FRAMEWORK != 'middleman'
 && FRAMEWORK != 'spike'){
-	const scssFilePath = './scss/main.scss';
+	const scssFilePath = scssSRC;
 	gulp.task('scss', function(){
 			return gulp.src(scssFilePath)
 			.pipe(plumber())
 			.pipe(gulpSass())
-			.pipe(gulp.dest('./css/main.css'));
+			.pipe(gulp.dest(`${scssTarget}/main.css`));
 	});
 }
 
