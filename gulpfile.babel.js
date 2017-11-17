@@ -35,7 +35,11 @@ let CSS_FRAMEWORK = process.env.CSS_FRAMEWORK || 'bootstrap'
 const middlemanTargets = `${__dirname}/source`;
 const spikeTargets = `${__dirname}/assets`;
 
-let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget;
+const middlemanSRC = `${__dirname}/js-scss-assets`;
+const wordpressSRC = `${__dirname}/js-scss-assets`;
+const spikeSRC     = `${__dirname}/js-scss-assets`;
+
+let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget, postCSSSRC, postCSSTarget;
 
 if(FRAMEWORK === 'middleman'){
 	jsTarget = `${middlemanTargets}/javascripts/`;
@@ -43,16 +47,26 @@ if(FRAMEWORK === 'middleman'){
 	esTarget = `${middlemanTargets}/javascripts/`;
 	fontsTarget = `${middlemanTargets}/fonts/`;
 	imageTarget = `${middlemanTargets}/images/`;
+	es6functionSRC = `${middlemanSRC}/js/es6/main.js`;
+	postCSSSRC = `${middlemanSRC}/postcss/main.css`;
+	postCSSTarget = `${middlemanTargets}/stylesheets/postcss`;
+
 }else if(FRAMEWORK === 'wordpress'){
 	jsTarget = './javascripts/';
 	scssTarget = './stylesheets/';
 	esTarget = './javascripts/';
 	es6functionSRC = `${__dirname}/js-scss-assets/js/es6/main.js`;
-	scssSRC = `${__dirname}/js-scss-assets/scss/main.scss`
+	scssSRC = `${__dirname}/js-scss-assets/scss/main.scss`;
+	es6functionSRC = `${wordpressSRC}/js/es6/main.js`;
+	postCSSSRC = `${wordpressSRC}/postcss/main.css`;
+	postCSSTarget = `./stylesheets/postcss/`;
 }else if(FRAMEWORK === 'spike'){ 
 	jsTarget = `${spikeTargets}/vendor`;
 	fontsTarget = `${spikeTargets}/fonts`;
 	imageTarget = `${spikeTargets}/img`;
+	es6functionSRC = `${spikeSRC}/js/es6/main.js`;
+	postCSSSRC = `${spikeSRC}/postcss/main.css`;
+	postCSSTarget = `${spikeTargets}/css/postcss`;
 }
 
 
@@ -82,7 +96,6 @@ gulp.task('concatLibs', function(){
 			requiredPlugins = [...requiredPlugins,foundationSRC];
 			outputName = 'foundation-libs.js';
 		}
-
 		return gulp.src(requiredPlugins)
 		.pipe(gulpConcat(outputName))
     .pipe(gulp.dest(jsTarget));
@@ -146,7 +159,7 @@ gulp.task('postcss', function(){
 		.pipe(gulpSourcemap.init())
 		.pipe(gulpPostCSS(postcssPlugins))
 		.pipe(gulpSourcemap.write('.'))
-		.pipe(gulp.dest('./source/postcss'));
+		.pipe(gulp.dest(postCSSTarget));
 });
 
 
@@ -164,6 +177,10 @@ gulp.task('copySlickCarouselFonts', () => {
 	const slickCarouselFonts = `${node_modules_path}/slick-carousel/slick/fonts/**`;
 	gulp.src(slickCarouselFonts)
 	.pipe(gulp.dest(fontsTarget))
+
+	const slickCarouselImage = `${node_modules_path}/slick-carousel/slick/ajax-loader.gif`;
+	gulp.src(slickCarouselImage)
+		.pipe(gulp.dest(imageTarget))
 });
 
 
@@ -171,13 +188,10 @@ gulp.task('runBeforeGulp', () => {
 	const fontAwesomeFonts = `${node_modules_path}/font-awesome/fonts/**`;
 	gulp.src(fontAwesomeFonts)
 	.pipe(gulp.dest(fontsTarget))
+})
 
 
-	const slickCarouselFonts = `${node_modules_path}/slick-carousel/slick/fonts/**`;
-	gulp.src(slickCarouselFonts)
-	.pipe(gulp.dest(fontsTarget))
-
-
+gulp.task('rateYoSRC', () => {
 	const rateyoCSS = `${node_modules_path}/rateyo/`;
 	gulp.src([
 		`${rateyoCSS}/min/jquery.rateyo.min.css`
@@ -185,7 +199,9 @@ gulp.task('runBeforeGulp', () => {
 		path.dirname +='/scss';
 		path.extname = '.scss'
 	})).pipe(gulp.dest(rateyoCSS))
+})
 
+gulp.task('dropZoneTask', () => {
 
 	const dropzoneDIR = `${node_modules_path}/dropzone/`;
 	const dropzoneBasicSRC = `${node_modules_path}/dropzone/dist/basic.css`;
@@ -197,7 +213,6 @@ gulp.task('runBeforeGulp', () => {
 		}))
 		.pipe(gulp.dest(dropzoneDIR))
 })
-
 
 gulp.task('bootstrapDatePickerTask', () => {
   const bootstrapDatePickerDir = `${node_modules_path}/bootstrap-datepicker`
