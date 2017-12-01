@@ -113,7 +113,7 @@ gulp.task('concatCommonLibs', () =>{
 
 	])
 	.pipe(plumber())
-	.pipe(gulpConcat('common-3rd-libs'))
+	.pipe(gulpConcat('common-3rd-libs.js'))
 	.pipe(gulp.dest(jsTarget));
 });
 
