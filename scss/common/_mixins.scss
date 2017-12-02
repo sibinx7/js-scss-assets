@@ -50,11 +50,15 @@
     animation: $name $duration $function $delay $iteration;
 }
 
-@mixin c-background-image($size:'cover', $color:#eee) {
+@mixin c-background-image($size:'cover', $color:#eee, $hight:100vh) {
     background-color: $color;
     background-position: center;
     background-repeat: no-repeat;
     background-size: unquote($size);
+    height: $hight;
+    display: block;
+    width: 100%;
+    position: relative;
 }
 
 
