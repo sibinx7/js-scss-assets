@@ -8,24 +8,42 @@
 @import "table";
 
 /** HEADER MENU **/
-header{
 
-}
+header {}
+
 
 /** END HEADER MENU **/
 
 
 /** FOOTER SECTION **/
-footer{
-	
-}
+
+footer {}
+
 
 /** END FOOTER SECTION **/
 
 
 /** COMMON STYLES **/
-aside{
 
-}
+aside {}
+
 
 /** END COMMON STYLES **/
+
+.section-padding {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    @media all and (max-width: $sm - 1) {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+.section-padding-80 {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    @media all and (max-width: $sm - 1) {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
