@@ -61,6 +61,32 @@
     position: relative;
 }
 
+@mixin c-background-overlay($pseudo:'after') {
+    position: relative;
+    @if($pseudo=='after') {
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    @else if($pseudo=='before') {
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
 
 /*====================================================
                         KEY FRAME
