@@ -63,6 +63,13 @@
 
 @mixin c-background-overlay($pseudo:'after') {
     position: relative;
+    * {
+        z-index: 2;
+    }
+    &:after,
+    &:before {
+        z-index: 1;
+    }
     @if($pseudo=='after') {
         &:after {
             content: '';
