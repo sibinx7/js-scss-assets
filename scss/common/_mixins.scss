@@ -95,6 +95,62 @@
 }
 
 
+/* SLICK SLIDER */
+
+@mixin slick__single-full($height:100vh) {
+    .jsslick {
+        &__single__slider {
+            position: relative;
+        }
+        &__item {
+            @include c-background-image('cover', $height);
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-align-content: center;
+            align-content: center;
+            -webkit-align-items: center;
+            align-items: center;
+            &.slick-slide {
+                display: -webkit-flex;
+                display: flex;
+            }
+            .text-right {
+                color: #fff;
+            }
+            .main-title {
+                font-size: 50px;
+            }
+            .sub-title {
+                font-size: 36px;
+            }
+            @media all and (max-width: $sm - 1) {
+                .main-title {
+                    font-size: 36px;
+                }
+                .sub-title {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+    &.arrow-inside {
+        .slick-arrow {
+            &.slick-prev {
+                left: 25px;
+            }
+            &.slick-next {
+                right: 25px;
+            }
+        }
+    }
+}
+
+
+/* END SLICK SLIDER */
+
+
 /*====================================================
                         KEY FRAME
 =====================================================*/
