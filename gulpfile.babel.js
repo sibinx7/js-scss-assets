@@ -32,16 +32,24 @@ let CSS_FRAMEWORK = process.env.CSS_FRAMEWORK || 'bootstrap'
 
 
 
+/* Middleman Paths */
 const middlemanTargets = `${__dirname}/source`;
-const spikeTargets = `${__dirname}/assets`;
-
+const middlemanCSSTarget = `${middlemanTargets}/stylesheets`;
+const middlemanJSTarget = `${middlemanTargets}/javascripts`;
 const middlemanSRC = `${__dirname}/js-scss-assets`;
-const wordpressSRC = `${__dirname}/js-scss-assets`;
+const middlemanSCSSSRC = `${middlemanSRC}/scss/**/*.*`;
+const middlemanJSSRC = `${middlemanSRC}/js/es6/**/*.*`;
+/* End Middleman Paths */
+
+const spikeTargets = `${__dirname}/assets`;
 const spikeSRC = `${__dirname}/js-scss-assets`;
 
+/* WordPress Paths */
+const wordpressSRC = `${__dirname}/js-scss-assets`;
 const wordpressSCSSPath = `${__dirname}/js-scss-assets/scss/**/*.scss`;
 const wordpressES6Path = `${__dirname}/js-scss-assets/js/es6/**/*.js`;
 const wordpressJSPath = `${__dirname}/js-scss-assets/js/js/**/*.js`;
+/* End WordPress Paths */
 
 let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget, postCSSSRC, postCSSTarget;
 
@@ -87,7 +95,7 @@ if (FRAMEWORK != 'middleman' &&
 
 
 const jquerySRC = `${node_modules_path}/jquery/dist/jquery.min.js`;
-const popper = `${node_modules_path}/popper/dist/umd/popper.min.js`;
+const popper = `${node_modules_path}/popper.js/dist/umd/popper.min.js`;
 const bootstrapSRC = `${node_modules_path}/bootstrap/dist/js/bootstrap.min.js`;
 const foundationSRC = `${node_modules_path}/foundation-sites/dist/foundation.min.js`;
 
@@ -152,9 +160,9 @@ const postcssPlugins = [
     require('postcss-media-minmax'),
     require('postcss-nesting'),
 
-    // require('postcss-scss'),
-    // require('postcss-simple-vars'),
-    // require('postcss-color-function')
+    require('postcss-scss'),
+    require('postcss-simple-vars'),
+    require('postcss-color-function')
 
 ];
 gulp.task('postcss', function() {
@@ -168,10 +176,21 @@ gulp.task('postcss', function() {
 
 
 gulp.task('watch', function() {
-    gulp.watch(`${wordpressJSPath}`, ['concatFunctions']);
-    gulp.watch(`${wordpressES6Path}`, ['concatBabelScript']);
-    if (FRAMEWORK != 'middleman') {
+    if (FRAMEWORK === 'wordpress') {
+        gulp.watch(`${wordpressJSPath}`, ['concatFunctions']);
+        gulp.watch(`${wordpressES6Path}`, ['concatBabelScript']);
         gulp.watch(`${wordpressSCSSPath}`, ['scss']);
+    }
+
+    /* Middleman use old Ruby SASS, Node SASS is upto date and new */
+    if (FRAMEWORK === 'middleman') {
+        gulp.watch(`${middlemanJSSRC}`, ['concatBabelScripts']);
+        gulp.watch(`${middlemanSCSSSRC}`, ['scss'])
+    }
+
+    /* No need any watch functions */
+    if (FRAMEWORK === 'spike') {
+
     }
 })
 
@@ -180,20 +199,17 @@ gulp.task('watch', function() {
 
 gulp.task('copySlickCarouselFonts', () => {
     const slickCarouselFonts = `${node_modules_path}/slick-carousel/slick/fonts/**`;
+    const slickCarouselImage = `${node_modules_path}/slick-carousel/slick/ajax-loader.gif`;
     gulp.src(slickCarouselFonts)
         .pipe(gulp.dest(fontsTarget))
 
-    const slickCarouselImage = `${node_modules_path}/slick-carousel/slick/ajax-loader.gif`;
+
     gulp.src(slickCarouselImage)
         .pipe(gulp.dest(imageTarget))
 });
 
 
-gulp.task('runBeforeGulp', () => {
-    const fontAwesomeFonts = `${node_modules_path}/font-awesome/fonts/**`;
-    gulp.src(fontAwesomeFonts)
-        .pipe(gulp.dest(fontsTarget))
-})
+
 
 
 gulp.task('rateYoSRC', () => {
