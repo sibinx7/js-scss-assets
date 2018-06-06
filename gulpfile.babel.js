@@ -96,14 +96,17 @@ if (FRAMEWORK === 'middleman') {
 }
 
 
-if (FRAMEWORK != 'middleman' &&
-    FRAMEWORK != 'spike') {
+if (FRAMEWORK != 'spike') {
+		let styleTarget = `${scssTarget}/main.css`;
+		if(FRAMEWORK === 'middleman'){
+			styleTarget = `${scssTarget}/main.css.scss`;
+		}
     const scssFilePath = scssSRC;
     gulp.task('scss', function() {
         return gulp.src(scssFilePath)
             .pipe(plumber())
             .pipe(gulpSass())
-            .pipe(gulp.dest(`${scssTarget}/main.css`));
+            .pipe(gulp.dest(styleTarget));
     });
 }
 
@@ -292,7 +295,7 @@ gulp.task('renameAndCopyDataTable', () => {
 
 
 const commonTaskes = ['concatLibs', 'concatFunctions', 'concatBabelScript'];
-if (FRAMEWORK != 'middleman' && FRAMEWORK != 'spike') {
+if (FRAMEWORK != 'spike') {
     commonTaskes.push('scss');
 }
 
