@@ -53,6 +53,20 @@ const wordpressJSPath = `${__dirname}/js-scss-assets/js/js/**/*.js`;
 
 let jsTarget, scssTarget, esTarget, fontsTarget, imageTarget, postCSSSRC, postCSSTarget;
 
+
+/* Dashboard Section */
+let middlemanDashboardCSSTarget, middlemanDashboardJSTarget;
+if(FRAMEWORK === 'middleman'){
+    middlemanDashboardCSSTarget = `${middlemanCSSTarget}/dashboard.css`;
+    middlemanDashboardJSTarget  = `${middlemanJSTarget}/dashboard.js`;
+}
+
+
+/* End Dashboard Section */
+
+
+
+
 if (FRAMEWORK === 'middleman') {
     jsTarget = `${middlemanTargets}/javascripts/`;
     scssTarget = `${middlemanTargets}/stylesheets/`;
@@ -195,21 +209,14 @@ gulp.task('watch', function() {
 })
 
 
-
-
 gulp.task('copySlickCarouselFonts', () => {
     const slickCarouselFonts = `${node_modules_path}/slick-carousel/slick/fonts/**`;
     const slickCarouselImage = `${node_modules_path}/slick-carousel/slick/ajax-loader.gif`;
     gulp.src(slickCarouselFonts)
         .pipe(gulp.dest(fontsTarget))
-
-
     gulp.src(slickCarouselImage)
         .pipe(gulp.dest(imageTarget))
 });
-
-
-
 
 
 gulp.task('rateYoSRC', () => {
@@ -223,7 +230,6 @@ gulp.task('rateYoSRC', () => {
 })
 
 gulp.task('dropZoneTask', () => {
-
     const dropzoneDIR = `${node_modules_path}/dropzone/`;
     const dropzoneBasicSRC = `${node_modules_path}/dropzone/dist/basic.css`;
     const dropzoneSRC = `${node_modules_path}/dropzone/dist/dropzpne.css`;
@@ -235,18 +241,17 @@ gulp.task('dropZoneTask', () => {
         .pipe(gulp.dest(dropzoneDIR))
 })
 
+/**
+ * Bootstrap Date picker 
+ */
 gulp.task('bootstrapDatePickerTask', () => {
     const bootstrapDatePickerDir = `${node_modules_path}/bootstrap-datepicker`
     const bootstrapDatePickerJSSRC = `${bootstrapDatePickerDir}/dist/js/bootstrap-datepicker.min.js`;
     const bootstrapDatePickerCSSSRC = `${bootstrapDatePickerDir}/dist/css`
         // Save JS File
-
     gulp.src(bootstrapDatePickerJSSRC)
         .pipe(gulp.dest(jsTarget));
-
-
     // Convert CSS TO SASS
-
     gulp.src(`${bootstrapDatePickerCSSSRC}/*.min.css`)
         .pipe(gulpRename((path) => {
             path.dirname += '/scss';
@@ -254,19 +259,16 @@ gulp.task('bootstrapDatePickerTask', () => {
         })).pipe(gulp.dest(bootstrapDatePickerDir))
 })
 
-
+/**
+ * Data Table CSS, SCSS and JS
+ */
 gulp.task('renameAndCopyDataTable', () => {
-
-
     const dataTable = `${node_modules_path}/datatables.net/js/jquery.dataTables.js`;
     const dataTableBootstrap = `${node_modules_path}/datatables.net-bs4/js/dataTables.bootstrap4.js`;
     const dataTableImages = `${node_modules_path}/datatables.net-dt/images/*.*`;
     const dataTableCSSSRC = `${node_modules_path}/datatables.net-dt/`;
     const dataTableBootstrapSRC = `${node_modules_path}/datatables.net-bs4/`;
     const dataTableDestination = `./assets/images`
-
-
-
     gulp.src([
             dataTable, dataTableBootstrap
         ])
@@ -274,15 +276,12 @@ gulp.task('renameAndCopyDataTable', () => {
         .pipe(gulp.dest(jsTarget))
     gulp.src(dataTableImages)
         .pipe(gulp.dest(dataTableDestination))
-
-
     gulp.src(`${dataTableCSSSRC}css/jquery.dataTables.css`)
         .pipe(gulpRename((path) => {
             path.dirname += '/scss';
             path.extname = ".scss"
         }))
         .pipe(gulp.dest(dataTableCSSSRC))
-
     gulp.src(`${dataTableBootstrapSRC}css/dataTables.bootstrap4.css`)
         .pipe(gulpRename((path) => {
             path.dirname += '/scss';
