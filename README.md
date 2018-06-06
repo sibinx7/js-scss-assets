@@ -44,7 +44,7 @@ sudo npm install typescript@latest  babel-cli@latest babel-core@latest babelify@
 ##### Install locally, dev dependencies
 
 ```
-npm  install autoprefixer babel-cli babel-core babel-preset-env babel-preset-es2015 babel-preset-es2017 babel-preset-latest babelify browserify cssnano dotenv gulp gulp-babel gulp-browserify gulp-concat gulp-plumber gulp-postcss gulp-rename gulp-sass gulp-typescript gulp-uglify install postcss postcss-color-function typescript vinyl-buffer vinyl-source-stream browser-sync gulp-sourcemaps precss postcss-extend -D
+npm  install autoprefixer babel-cli babel-core babel-preset-env babel-preset-es2015 babel-preset-es2017 babel-preset-latest babelify browserify cssnano dotenv gulp gulp-babel gulp-browserify gulp-concat gulp-plumber gulp-postcss gulp-rename gulp-sass gulp-typescript gulp-uglify install postcss postcss-color-function typescript vinyl-buffer vinyl-source-stream browser-sync gulp-sourcemaps precss postcss-extend babel-preset-react postcss-simple-vars -D
 ```
 
 ##### Install locally, dependencies 
