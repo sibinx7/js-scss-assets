@@ -154,7 +154,7 @@ gulp.task('concatFunctions', function() {
 gulp.task('concatBabelScript', function() {
     return browserify({ entries: `${es6functionSRC}` })
         .transform("babelify", {
-            presets: ["es2015", "latest"]
+            presets: ["es2017", "latest"]
         })
         .bundle()
         .pipe(plumber())
