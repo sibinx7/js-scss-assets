@@ -22,7 +22,7 @@ const cssnano = require('cssnano');
 const node_modules_path = `${__dirname}/node_modules`;
 
 let es6functionSRC = `${__dirname}/js/es6/main.js`;
-let scssSRC;
+let scssSRC,dashboardSCSSSRC;
 
 
 require('dotenv').config();
@@ -76,6 +76,8 @@ if (FRAMEWORK === 'middleman') {
     es6functionSRC = `${middlemanSRC}/js/es6/main.js`;
     postCSSSRC = `${middlemanSRC}/postcss/main.css`;
     postCSSTarget = `${middlemanTargets}/stylesheets/postcss`;
+		scssSRC = `${middlemanSRC}/scss/main.scss`;
+  	dashboardSCSSSRC = `${middlemanSRC}/scss/dashboard.scss`;
 
 } else if (FRAMEWORK === 'wordpress') {
     jsTarget = './javascripts/';
@@ -108,6 +110,16 @@ if (FRAMEWORK != 'spike') {
             .pipe(gulpSass())
             .pipe(gulp.dest(styleTarget));
     });
+
+		  gulp.task('dashboardSCSS', () => {
+    return gulp.src(dashboardSCSSSRC)
+      .pipe(plumber())
+      .pipe(gulpSass({outputStyle: 'compressed'}))
+      .pipe(gulpRename((path) => {
+        path.extname = '.css';
+      }))
+      .pipe(gulp.dest(`${scssTarget}`))
+  })
 }
 
 
@@ -202,7 +214,7 @@ gulp.task('watch', function() {
     /* Middleman use old Ruby SASS, Node SASS is upto date and new */
     if (FRAMEWORK === 'middleman') {
         gulp.watch(`${middlemanJSSRC}`, ['concatBabelScripts']);
-        gulp.watch(`${middlemanSCSSSRC}`, ['scss'])
+        gulp.watch(`${middlemanSCSSSRC}`, ['scss','dashboardSCSS'])
     }
 
     /* No need any watch functions */
@@ -297,6 +309,7 @@ gulp.task('renameAndCopyDataTable', () => {
 const commonTaskes = ['concatLibs', 'concatFunctions', 'concatBabelScript'];
 if (FRAMEWORK != 'spike') {
     commonTaskes.push('scss');
+		commonTaskes.push('dashboardSCSS')
 }
 
 gulp.task('default', commonTaskes);
