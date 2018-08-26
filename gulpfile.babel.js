@@ -101,7 +101,7 @@ if (FRAMEWORK === 'middleman') {
 if (FRAMEWORK != 'spike') {
 		let styleTarget = `${scssTarget}/main.css`;
 		if(FRAMEWORK === 'middleman'){
-			styleTarget = `${scssTarget}/main.css.scss`;
+			styleTarget = `${scssTarget}`;
 		}
     const scssFilePath = scssSRC;
     gulp.task('scss', function() {
@@ -307,7 +307,7 @@ gulp.task('renameAndCopyDataTable', () => {
 
 
 const commonTaskes = ['concatLibs', 'concatFunctions', 'concatBabelScript'];
-if (FRAMEWORK != 'spike') {
+if (FRAMEWORK !== 'spike') {
     commonTaskes.push('scss');
 		commonTaskes.push('dashboardSCSS')
 }
