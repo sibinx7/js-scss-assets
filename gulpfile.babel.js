@@ -217,7 +217,7 @@ gulp.task('watch', function() {
 
     /* Middleman use old Ruby SASS, Node SASS is upto date and new */
     if (FRAMEWORK === 'middleman') {
-        gulp.watch(`${middlemanJSSRC}`, ['concatBabelScripts']);
+        gulp.watch(`${middlemanJSSRC}`, ['concatBabelScript']);
         gulp.watch(`${middlemanSCSSSRC}`, ['scss','dashboardSCSS'])
     }
 
