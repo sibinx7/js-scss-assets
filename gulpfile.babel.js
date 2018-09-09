@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const gulpSass = require('gulp-sass');
+const gulpSassVariable = require("gulp-sass-variables");
 const gulpConcat = require('gulp-concat');
 const gulpRename = require('gulp-rename');
 const babel = require("gulp-babel");
@@ -106,6 +107,9 @@ if (FRAMEWORK != 'spike') {
     const scssFilePath = scssSRC;
     gulp.task('scss', function() {
         return gulp.src(scssFilePath)
+            .pipe(gulpSassVariable({
+                $framwork: process.env.FRAMEWORK? process.env.FRAMEWORK:'middleman'
+            }))
             .pipe(plumber())
             .pipe(gulpSass())
             .pipe(gulp.dest(styleTarget));
