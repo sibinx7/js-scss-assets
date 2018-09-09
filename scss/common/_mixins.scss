@@ -154,3 +154,22 @@
 /*====================================================
                         KEY FRAME
 =====================================================*/
+
+
+@mixin d_flex($width){
+	display: -webkit-flex;
+	display: flex;
+	width: $width;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+@mixin flex_basis($width){
+	-webkit-flex: 0 0 $width;
+	flex: 0 0 $width;
+	-webkit-flex-basis: $width;
+	flex-basis: $width;
+	max-width: $width;
+}
