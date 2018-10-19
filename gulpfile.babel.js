@@ -173,7 +173,10 @@ gulp.task('concatFunctions', function() {
 gulp.task('concatBabelScript', function() {
     return browserify({ entries: `${es6functionSRC}` })
         .transform("babelify", {
-            presets: ["es2017", "latest"]
+            presets: [
+                "@babel/preset-env",
+                "@babel/preset-react"
+]
         })
         .bundle()
         .pipe(plumber())
