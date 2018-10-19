@@ -2,21 +2,8 @@
 $framework: "middleman"!default;
 $node_module_path: "../../node_modules";
 
-@if($framework == 'middleman'){
-	@import '../../node_modules/bootstrap/scss/bootstrap';
-	@import '../../node_modules/font-awesome/scss/font-awesome';
-}@else if($framework == 'wordpress'){
-	@import '../node_modules/bootstrap/scss/bootstrap';
-	@import '../node_modules/font-awesome/scss/font-awesome';
-}
-
-
-
-
-@mixin include_foundation_site_framework{
-	@include foundation-everything(true);
-	@include foundation-xy-grid-classes;
-}
+@import '../../node_modules/bootstrap/scss/bootstrap';
+@import '../../node_modules/font-awesome/scss/font-awesome';
 
 @import "common/common";
 @import "pages/index";
