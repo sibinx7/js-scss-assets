@@ -100,7 +100,7 @@ if (FRAMEWORK === 'middleman') {
 
 
 if (FRAMEWORK != 'spike') {
-		let styleTarget = `${scssTarget}/main.css`;
+		let styleTarget = `${scssTarget}/`;
 		if(FRAMEWORK === 'middleman'){
 			styleTarget = `${scssTarget}`;
 		}
