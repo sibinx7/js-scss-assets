@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "ie=edge", "http-equiv" => "x-ua-compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1, shrink-to-fit=no", :name => "viewport"}/
+    / Use the title from a page's frontmatter if it has one
+    %title= current_page.data.title || "Spectometry"
+    = stylesheet_link_tag "main"
+    = javascript_include_tag "bootstrap-libs"
+  %body
+    .wrapper
+      .wrapper__header
+        = partial "partials/header"
+      .wrapper__content
+        = yield
+      .wrapper___footer
+        = partial "partials/footer"
+    - if content_for?(:javascript_before)
+      = yield_content :javascript_before
+    = javascript_include_tag "main-es6"
+    - if content_for?(:javascript_after)
+      = yield_content :javascript_after
+    - if content_for?(:extra_modal)
+      = yield_content :extra_modal
+

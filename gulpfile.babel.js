@@ -162,6 +162,20 @@ gulp.task('concatCommonLibs', () => {
         .pipe(gulp.dest(jsTarget));
 });
 
+const smartWizardDir = `${node_modules_path}/smartwizard/dist`;
+const smartWizardSRC = `${smartWizardDir}/js/jquery.smartWizard.min.js`;
+const smartWizardCSSFolder = `${smartWizardDir}/css`;
+gulp.task("gulpSmartWizardSRC", () => {
+    gulp.src(smartWizardSRC)
+      .pipe(gulp.dest(jsTarget));
+    gulp.src(smartWizardCSSFolder)
+      .pipe(plumber())
+      .pipe(gulpRename((path) => {
+          path.dirname += '/scss';
+          path.extname = '.scss'
+      })).pipe(gulp.dest(smartWizardDir));
+});
+
 
 gulp.task('concatFunctions', function() {
     return gulp.src([])
