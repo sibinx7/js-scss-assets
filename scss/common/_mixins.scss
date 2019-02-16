@@ -182,6 +182,23 @@
 /**
 * Grid 3-2-1 
 */
+
+@mixin gird_2_1($grid_gap) {
+	$total_width: 100%;
+	$grid_total_gap: (2 * $grid_gap);
+	@include d_flex(calc(100% + #{$grid_total_gap}));
+	margin-left: -#{$grid_gap};
+	margin-right: -#{$grid_gap};
+	.grid{
+		@include flex_basis($total_width/2);
+		padding-left: $grid_gap;
+		padding-right: $grid_gap;
+		@media all and (max-width: 767px){
+			@include flex_basis($total_width);
+		}
+	}
+}
+
 @mixin grid_3_2_1($grid_gap) {
 	$total_width: 100%;
 	$grid_total_gap: (2 * $grid_gap);
