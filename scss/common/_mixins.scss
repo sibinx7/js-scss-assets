@@ -173,3 +173,52 @@
 	flex-basis: $width;
 	max-width: $width;
 }
+
+
+/**
+* @todo Use for loop 
+**/
+
+/**
+* Grid 3-2-1 
+*/
+@mixin grid_3_2_1($grid_gap) {
+	$total_width: 100%;
+	$grid_total_gap: (2 * $grid_gap);
+	@include d_flex(calc(100% + #{$grid_total_gap}));
+	margin-left: -#{$grid_gap};
+	margin-right: -#{$grid_gap};
+	.grid{
+		@include flex_basis($total_width/3);
+		padding-left: $grid_gap;
+		padding-right: $grid_gap;
+		@media all and (min-width: 768px) and (max-width: 991px){
+			@include flex_basis($total_width/2)
+		}
+		@media all and (max-width: 767px){
+			@include flex_basis($total_width);
+		}
+	}
+}
+
+@mixin grid_4_2_1($grid_gap) {
+	$total_width: 100%;
+	$grid_total_gap: (2 * $grid_gap);
+	@include d_flex(calc(100% + #{$grid_total_gap}));
+	margin-left: -#{$grid_gap};
+	margin-right: -#{$grid_gap};
+	.grid{
+		@include flex_basis($total_width/4);
+		padding-left: $grid_gap;
+		padding-right: $grid_gap;
+		@media all and (min-width: 992px) and (max-width: 1199px){
+			@include flex_basis($total_width/3);
+		}
+		@media all and (min-width: 768px) and (max-width: 991px){
+			@include flex_basis($total_width/2);
+		}
+		@media all and (max-width: 767px){
+			@include flex_basis($total_width);
+		}
+	}
+}
