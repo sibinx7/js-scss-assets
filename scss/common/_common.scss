@@ -58,3 +58,15 @@ aside {}
 		max-width: 100%;
 	}
 }
+
+
+.custom{
+	&__list{
+		li{
+			list-style: none;
+		}
+		&--h{
+
+		}
+	}
+}

@@ -166,6 +166,17 @@
 	flex-wrap: wrap;
 }
 
+@mixin d_flex_row($width, $margin){
+	$total_width: calc(#{$width} + #{(2 * $margin)});
+	@include d_flex($total_width);
+	margin-left: -#{$margin};
+	margin-right: -#{$margin};
+	.grid-item{
+		padding-left: $margin;
+		padding-right: $margin;
+	}
+}
+
 @mixin flex_basis($width){
 	-webkit-flex: 0 0 $width;
 	flex: 0 0 $width;
@@ -237,5 +248,17 @@
 		@media all and (max-width: 767px){
 			@include flex_basis($total_width);
 		}
+	}
+}
+
+@mixin hover_a_tag($color, $color_hover){
+	text-decoration: none;
+	color: $color;
+	&:hover,
+	&:active,
+	&:active:focus,
+	&:focus{
+		text-decoration: none;
+		color: $color_hover;
 	}
 }
